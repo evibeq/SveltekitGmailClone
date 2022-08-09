@@ -33,7 +33,7 @@
 
 <style>
     .helpPanel {
-        position: absolute;
+        position: fixed;
         display: flex;
         align-items: center;
         padding: 20px;

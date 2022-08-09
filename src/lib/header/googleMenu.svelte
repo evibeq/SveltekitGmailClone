@@ -76,7 +76,7 @@
     }
 
     .googleMenu {
-        position: absolute;
+        position: fixed;
         overflow-y: scroll;
         top: 60px;  
         right: 10px;

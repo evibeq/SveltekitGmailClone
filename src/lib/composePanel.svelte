@@ -178,7 +178,7 @@
     }
 
     .compose {
-        position: absolute;
+        position: fixed;
         right: 80px;
         bottom: 0px;
         width: 600px;

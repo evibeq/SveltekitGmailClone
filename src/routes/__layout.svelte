@@ -99,7 +99,7 @@
         background-color: #2c2c2c;
         border-radius: 10px;
         margin-bottom: 20px;
-        flex: 1;
+        flex: 1 0 440px;
     }
     
 </style>

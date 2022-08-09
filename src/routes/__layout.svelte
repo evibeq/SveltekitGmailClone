@@ -1,58 +1,105 @@
 <script>
-  import Header from '$lib/header/Header.svelte';
-  import { webVitals } from '$lib/vitals';
-  import { browser } from '$app/env';
-  import { page } from '$app/stores';
-  import '../app.css';
-
-  let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
-
-  $: if (browser && analyticsId) {
-    webVitals({
-      path: $page.url.pathname,
-      params: $page.params,
-      analyticsId
-    })
-  }
+    import Header from '$lib/header/header.svelte'
+    import LeftNav from '$lib/leftNav.svelte'
+    import RightNav from '$lib/rightNav.svelte'  
+    import Settings from '$lib/settings.svelte'
+    import {settingsVisible} from '$lib/utils/store.js'
 </script>
 
-<Header />
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</svelte:head>
 
-<main>
-  <slot />
-</main>
-
-<footer>
-  <p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-</footer>
+<div class="main">
+        <div class="header"><Header/></div>
+        <div class="container">
+            <div class="leftNav"><LeftNav/></div>
+            <div class="slot"><slot></slot></div>
+            {#if ($settingsVisible)}
+            <div class="settings" ><Settings/></div>
+            {:else}
+            <div class="settings invisible" ><Settings/></div>
+            {/if}
+            <div class="rightNav"><RightNav/></div>
+        </div>
+</div>
 
 <style>
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    width: 100%;
-    max-width: 1024px;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-
-  footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-  }
-
-  footer a {
-    font-weight: bold;
-  }
-
-  @media (min-width: 480px) {
-    footer {
-      padding: 40px 0;
+    :global(body) {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        background-color: #111111;
+        color: white;
+        margin: 0;
+        padding: 0;
     }
-  }
+
+    :global(a, a:hover, a:active, a:visited) {
+        text-decoration: none;
+        color: white;
+    }
+
+    :global(.button) {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 50px;
+        border: 0;
+        border-radius: 50%;
+        background-color: transparent;
+    }
+
+    :global(.button:hover) {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .main {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        padding: 8px 0 8px 0;
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .leftNav {
+        flex: 0 0 250px;
+    }
+
+    .settings {
+        flex: 0 0 300px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 16px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+    }
+
+    .invisible {
+        display: none;
+    }
+
+    .rightNav {
+        flex: 0 0 50px;
+    }
+
+    .slot {
+        background-color: #2c2c2c;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        flex: 1;
+    }
+    
 </style>
